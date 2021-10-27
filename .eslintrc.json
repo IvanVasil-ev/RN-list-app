@@ -21,6 +21,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "global-require": 0,
         "@typescript-eslint/no-unused-vars": [
             "error"
         ],
