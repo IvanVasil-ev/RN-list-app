@@ -46,7 +46,7 @@ function Home(): React.ReactElement {
         <FlatList
           data={mockData}
           renderItem={({ item }): React.ReactElement => (
-            <FlatListItem title={item.title} />
+            <FlatListItem title={item.title} id={item.id} />
           )}
           keyExtractor={(item) => String(item.id)}
           showsVerticalScrollIndicator={false}

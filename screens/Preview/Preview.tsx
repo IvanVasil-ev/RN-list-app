@@ -4,10 +4,20 @@ import {
   Text,
 } from 'react-native';
 
-function Preview(): React.ReactElement {
+type PreviewProps = {
+  route: {
+    params: {
+      title: string;
+    };
+  }
+}
+
+function Preview({ route }: PreviewProps): React.ReactElement {
+  const { title } = route.params;
+
   return (
     <View>
-      <Text>Preview page!</Text>
+      <Text>{title}</Text>
     </View>
   );
 }
