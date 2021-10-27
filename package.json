@@ -1,4 +1,17 @@
 {
+  "name": "rn-list-app",
+  "description": "This is React Native app based on Expo CLI for getting and watching list elements.",
+  "author": {
+    "name": "Ivan Vasilev",
+    "url": "https://github.com/ivan0vasilev"
+  },
+  "version": "1.0.0",
+  "private": true,
+  "homepage": "https://github.com/ivan0vasilev/RN-list-app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivan0vasilev/RN-list-app"
+  },
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -14,6 +27,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.2",
+    "react-native-reanimated": "^2.2.3",
     "react-native-web": "0.17.1"
   },
   "devDependencies": {
@@ -29,6 +43,5 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "typescript": "~4.3.5"
-  },
-  "private": true
+  }
 }
