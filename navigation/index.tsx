@@ -4,13 +4,13 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import LinkingConfiguration from './LinkingConfiguration';
 import { RootStackParamList } from './types';
+import { Home, Preview } from '../screens';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator = (): React.ReactElement => (
   <Stack.Navigator
     initialRouteName="Home"
-    screenOptions={{ headerShown: false }}
   >
     <Stack.Screen
       name="Home"
