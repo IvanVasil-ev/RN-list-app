@@ -3,7 +3,6 @@ import {
   FlatList,
   RefreshControl,
 } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import FlatListItem from '../../components/FlatListItem/FlatListItem';
@@ -38,20 +37,21 @@ function Home(): React.ReactElement {
 
   return (
     <SafeAreaProvider style={styles.container}>
-      <ScrollView style={styles.scroll}>
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-        />
-        <FlatList
-          data={mockData}
-          renderItem={({ item }): React.ReactElement => (
-            <FlatListItem title={item.title} id={item.id} />
-          )}
-          keyExtractor={(item) => String(item.id)}
-          showsVerticalScrollIndicator={false}
-        />
-      </ScrollView>
+      <FlatList
+        style={styles.flatList}
+        refreshControl={(
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        )}
+        data={mockData}
+        renderItem={({ item }): React.ReactElement => (
+          <FlatListItem title={item.title} id={item.id} />
+        )}
+        keyExtractor={(item) => `${item.id}`}
+        showsVerticalScrollIndicator={false}
+      />
     </SafeAreaProvider>
   );
 }
