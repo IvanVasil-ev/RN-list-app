@@ -10,6 +10,7 @@ import {
   getAllPending,
   getlAllSuccessful,
   getAllRejected,
+  getNextPageSuccessful,
 } from './actions';
 import {
   BASE_URL,
@@ -18,7 +19,7 @@ import {
 
 const apiCall = (config: any): AxiosPromise<any> => axios(config);
 
-function* getAll({ payload }: ReturnType<typeof getAllPending>): Generator {
+function* getPage({ payload }: ReturnType<typeof getAllPending>): Generator {
   try {
     const config = {
       method: 'GET',
@@ -35,8 +36,26 @@ function* getAll({ payload }: ReturnType<typeof getAllPending>): Generator {
   }
 }
 
+function* getNextPage({ payload }: ReturnType<typeof getAllPending>): Generator {
+  try {
+    const config = {
+      method: 'GET',
+      url: `${BASE_URL}?per_page=${ITEMS_QUANTITY}&page=${payload}`,
+      Headers: {
+        acept: 'application/vnd.github.v3+json',
+      },
+    };
+
+    const data: any = yield call(apiCall, config);
+    return yield put(getNextPageSuccessful(data.data));
+  } catch (e) {
+    return yield put(getAllRejected(e as any));
+  }
+}
+
 function* watch(): Generator {
-  yield takeLatest(actionTypes.LIST_GET_ALL_PENDING, getAll);
+  yield takeLatest(actionTypes.LIST_GET_ALL_PENDING, getPage);
+  yield takeLatest(actionTypes.LIST_GET_NEXT_PAGE_PENDING, getNextPage);
 }
 
 export default watch;

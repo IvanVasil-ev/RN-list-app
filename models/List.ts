@@ -1,6 +1,8 @@
 export type ListGetAllRequest = number;
 
-export type ListGetAllResponse = ListItemPreview[] | { message: string | null } | null;
+export type ListGetAllResponse = ListItemPreview[] | null;
+
+export type ListErrorRepsonse = Error;
 
 export type author = {
   email?: string;
@@ -60,5 +62,5 @@ export interface ListItemPreview {
   actor?: actor;
   org?: org;
   createdAt?: string;
-  id?: string;
+  id: string;
 }
