@@ -2,6 +2,8 @@ import axios, { AxiosPromise } from 'axios';
 import {
   call,
   put,
+  delay,
+  select,
   takeLatest,
 } from 'redux-saga/effects';
 
@@ -11,6 +13,9 @@ import {
   getlAllSuccessful,
   getAllRejected,
   getNextPageSuccessful,
+  updateListPending,
+  updateListSuccessful,
+  updateListRejected,
 } from './actions';
 import {
   BASE_URL,
@@ -19,8 +24,11 @@ import {
 
 const apiCall = (config: any): AxiosPromise<any> => axios(config);
 
-function* getPage({ payload }: ReturnType<typeof getAllPending>): Generator {
+function* getPage({
+  payload,
+}: ReturnType<typeof getAllPending>) {
   try {
+    const isDelayed: boolean = yield select((state) => state.list.isDelayed);
     const config = {
       method: 'GET',
       url: `${BASE_URL}?per_page=${ITEMS_QUANTITY}&page=${payload}`,
@@ -28,34 +36,45 @@ function* getPage({ payload }: ReturnType<typeof getAllPending>): Generator {
         acept: 'application/vnd.github.v3+json',
       },
     };
-
-    const data: any = yield call(apiCall, config);
-    return yield put(getlAllSuccessful(data.data));
+    if (isDelayed) {
+      yield delay(15000);
+    }
+    const { data } = yield call(apiCall, config);
+    if (payload === 1) {
+      yield put(getlAllSuccessful(data));
+    } else {
+      yield put(getNextPageSuccessful(data));
+    }
   } catch (e) {
-    return yield put(getAllRejected(e as any));
+    yield put(getAllRejected(e as any));
   }
 }
 
-function* getNextPage({ payload }: ReturnType<typeof getAllPending>): Generator {
+function* listUpdate({
+  payload,
+}: ReturnType<typeof updateListPending>) {
   try {
+    const offset = payload * ITEMS_QUANTITY;
+
     const config = {
       method: 'GET',
-      url: `${BASE_URL}?per_page=${ITEMS_QUANTITY}&page=${payload}`,
+      url: `${BASE_URL}?per_page=${offset}`,
       Headers: {
         acept: 'application/vnd.github.v3+json',
       },
     };
 
-    const data: any = yield call(apiCall, config);
-    return yield put(getNextPageSuccessful(data.data));
+    const { data } = yield call(apiCall, config);
+    yield put(updateListSuccessful(data));
   } catch (e) {
-    return yield put(getAllRejected(e as any));
+    yield put(updateListRejected(e as any));
   }
 }
 
 function* watch(): Generator {
   yield takeLatest(actionTypes.LIST_GET_ALL_PENDING, getPage);
-  yield takeLatest(actionTypes.LIST_GET_NEXT_PAGE_PENDING, getNextPage);
+  yield takeLatest(actionTypes.LIST_UPDATE_PENDING, listUpdate);
+  yield takeLatest(actionTypes.LIST_GET_NEXT_PAGE_PENDING, getPage);
 }
 
 export default watch;

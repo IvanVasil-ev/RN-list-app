@@ -1,12 +1,14 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import {
   View,
   Text,
   Image,
   ScrollView,
 } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import { ListItemPreview } from '../../models/List';
+import { changeValue, getAllPending } from '../../store/list/actions';
 import styles from './Preview.styles';
 
 type PreviewProps = {
@@ -18,10 +20,18 @@ type PreviewProps = {
 }
 
 function Preview({ route }: PreviewProps): React.ReactElement {
+  const dispatch = useDispatch();
   const { item } = route.params;
 
   const isRepo = !!item.repo;
   const isOrg = !!item.org;
+
+  useEffect(() => {
+    dispatch(changeValue({ key: 'isDelayed', value: false }));
+    return () => {
+      dispatch(getAllPending(1));
+    };
+  }, [dispatch]);
 
   return (
     <ScrollView style={styles.container}>

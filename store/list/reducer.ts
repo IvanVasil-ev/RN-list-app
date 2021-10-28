@@ -1,6 +1,7 @@
 import {
   ListModels,
 } from '../../models';
+import { ListChangeValue } from '../../models/List';
 import * as actionTypes from '../actionsList';
 import {
   ListActionTypes,
@@ -9,6 +10,7 @@ import {
 
 const INITIAL_STATE: ListState = {
   isLoading: false,
+  isDelayed: false,
   errorMessage: null,
   list: null,
   currentItemPreview: null,
@@ -38,6 +40,7 @@ function reducer(state = INITIAL_STATE, action: ListActionTypes): ListState {
         ...state,
         list,
         isLoading: false,
+        isDelayed: true,
         errorMessage: null,
       };
     }
@@ -67,6 +70,38 @@ function reducer(state = INITIAL_STATE, action: ListActionTypes): ListState {
       };
     }
     case actionTypes.LIST_GET_NEXT_PAGE_REJECTED: {
+      const error = payload as ListModels.ListErrorRepsonse;
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: error.message,
+      };
+    }
+    case actionTypes.LIST_CHANGE_VALUE: {
+      const { key, value } = payload as ListChangeValue;
+      return {
+        ...state,
+        [key]: value,
+      };
+    }
+    case actionTypes.LIST_UPDATE_PENDING: {
+      return {
+        ...state,
+        isLoading: true,
+        errorMessage: null,
+      };
+    }
+    case actionTypes.LIST_UPDATE_SUCCESSFUL: {
+      const list = payload as ListModels.ListGetAllResponse;
+      return {
+        ...state,
+        list,
+        isLoading: false,
+        isDelayed: true,
+        errorMessage: null,
+      };
+    }
+    case actionTypes.LIST_UPDATE_REJECTED: {
       const error = payload as ListModels.ListErrorRepsonse;
       return {
         ...state,
