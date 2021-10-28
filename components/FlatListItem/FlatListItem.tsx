@@ -4,20 +4,21 @@ import React, { useCallback } from 'react';
 import {
   View,
   Text,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 
+import { ListItemPreview } from '../../models/List';
 import styles from './FlatFlistItem.styles';
 
 type FlatListItemProps = {
-  id: number;
-  title: string;
+  item: ListItemPreview;
 }
 
-function FlatFlistItem({ title, id }: FlatListItemProps): React.ReactElement {
+function FlatFlistItem({ item }: FlatListItemProps): React.ReactElement {
   const navigation = useNavigation<StackNavigationProp<any, any>>();
 
-  const onPress = useCallback(() => navigation.navigate('Preview', { title }), [id]);
+  const onPress = useCallback(() => navigation.navigate('Preview', { item }), [item]);
 
   return (
     <TouchableOpacity
@@ -25,7 +26,22 @@ function FlatFlistItem({ title, id }: FlatListItemProps): React.ReactElement {
       onPress={onPress}
     >
       <View style={styles.itemWrapper}>
-        <Text style={styles.text}>{title}</Text>
+        <Image
+          style={styles.avatar}
+          source={{
+            uri: item.actor?.avatar_url,
+          }}
+        />
+        <View style={styles.userInfo}>
+          <Text style={[styles.text, styles.bold]}>
+            {item.actor?.login}
+          </Text>
+          <Text style={styles.text}>
+            Type:
+            {' '}
+            {item.type}
+          </Text>
+        </View>
       </View>
     </TouchableOpacity>
   );

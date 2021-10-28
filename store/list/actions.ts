@@ -6,8 +6,6 @@ import {
   GetAllPendingActionType,
   GetAllSuccessfulActionType,
   GetAllRejectedActionType,
-  SetItemPreviewActionType,
-  ClearItemPreviewActionType,
 } from './types';
 
 export const getAllPending = (
@@ -29,14 +27,4 @@ export const getAllRejected = (
 ): GetAllRejectedActionType => ({
   type: types.LIST_GET_ALL_REJECTED,
   payload,
-});
-
-export const setItemPreview = (
-): SetItemPreviewActionType => ({
-  type: types.LIST_SET_ITEM_PREVIEW,
-});
-
-export const clearItemPreview = (
-): ClearItemPreviewActionType => ({
-  type: types.LIST_CLEAR_ITEM_PREVIEW,
 });

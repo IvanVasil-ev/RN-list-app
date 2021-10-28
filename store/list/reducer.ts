@@ -21,7 +21,6 @@ function reducer(state = INITIAL_STATE, action: ListActionTypes): ListState {
     case actionTypes.REHYDRATE: {
       return {
         ...state,
-        ...(payload?.auth ?? {}),
         isLoading: false,
         errorMessage: null,
       };
@@ -48,19 +47,6 @@ function reducer(state = INITIAL_STATE, action: ListActionTypes): ListState {
         ...state,
         isLoading: false,
         errorMessage: error.message,
-      };
-    }
-    case actionTypes.LIST_SET_ITEM_PREVIEW: {
-      const currentItemPreview = payload as ListModels.ListItemPreview;
-      return {
-        ...state,
-        currentItemPreview,
-      };
-    }
-    case actionTypes.LIST_CLEAR_ITEM_PREVIEW: {
-      return {
-        ...state,
-        currentItemPreview: {},
       };
     }
     default: return state;
