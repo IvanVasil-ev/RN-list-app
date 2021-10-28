@@ -3,6 +3,7 @@ import React,
   memo,
   useCallback,
   useEffect,
+  useState,
 } from 'react';
 import {
   useSelector,
@@ -11,28 +12,42 @@ import {
 import {
   FlatList,
   RefreshControl,
+  ActivityIndicator,
 } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import FlatListItem from '../../components/FlatListItem/FlatListItem';
 import styles from './Home.styles';
 import { RootState } from '../../store/rootReducer';
-import { getAllPending } from '../../store/list/actions';
+import {
+  getAllPending,
+  getNextPagePending,
+} from '../../store/list/actions';
+import {
+  ListModels,
+} from '../../models';
 
 function Home(): React.ReactElement {
   const dispatch = useDispatch();
-  const isLoading = useSelector<RootState>((store) => store.list.isLoading);
-  const list = useSelector<RootState>((store) => store.list.list);
+  const isLoading = useSelector<RootState, boolean>((store) => store.list.isLoading);
+  const list = useSelector<RootState, ListModels.ListGetAllResponse>((store) => store.list.list);
 
-  const page = 1;
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getAllPending(page));
+    dispatch(getAllPending(1));
   }, []);
 
   const onRefresh = useCallback((): void => {
     dispatch(getAllPending(page));
-  }, [page]);
+  }, [page, dispatch]);
+
+  const onEndReached = useCallback((): void => {
+    if (Array.isArray(list) && list.length >= 25 && !isLoading) {
+      dispatch(getNextPagePending(page + 1));
+      setPage(page + 1);
+    }
+  }, [dispatch, page, list]);
 
   return (
     <SafeAreaProvider style={styles.container}>
@@ -50,6 +65,10 @@ function Home(): React.ReactElement {
         )}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
+        onEndReached={onEndReached}
+        ListFooterComponent={(isLoading && list?.length) ? (
+          <ActivityIndicator size="small" />
+        ) : null}
       />
     </SafeAreaProvider>
   );

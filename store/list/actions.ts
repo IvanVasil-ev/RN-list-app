@@ -6,6 +6,9 @@ import {
   GetAllPendingActionType,
   GetAllSuccessfulActionType,
   GetAllRejectedActionType,
+  LoadNextPagePendingActionType,
+  LoadNextPageSuccessfulActionType,
+  LoadNextPageRejectedActionType,
 } from './types';
 
 export const getAllPending = (
@@ -26,5 +29,26 @@ export const getAllRejected = (
   payload: ListModels.ListGetAllResponse,
 ): GetAllRejectedActionType => ({
   type: types.LIST_GET_ALL_REJECTED,
+  payload,
+});
+
+export const getNextPagePending = (
+  payload: ListModels.ListGetAllRequest,
+): LoadNextPagePendingActionType => ({
+  type: types.LIST_GET_NEXT_PAGE_PENDING,
+  payload,
+});
+
+export const getNextPageSuccessful = (
+  payload: ListModels.ListGetAllResponse,
+): LoadNextPageSuccessfulActionType => ({
+  type: types.LIST_GET_NEXT_PAGE_SUCCESSFUL,
+  payload,
+});
+
+export const getNextPageRejected = (
+  payload: ListModels.ListGetAllResponse,
+): LoadNextPageRejectedActionType => ({
+  type: types.LIST_GET_NEXT_PAGE_REJECTED,
   payload,
 });
