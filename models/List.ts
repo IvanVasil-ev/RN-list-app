@@ -2,6 +2,11 @@ export type ListGetAllRequest = number;
 
 export type ListGetAllResponse = ListItemPreview[] | null;
 
+export type ListChangeValue = {
+  key: string;
+  value: any,
+};
+
 export type ListErrorRepsonse = Error;
 
 export type author = {
