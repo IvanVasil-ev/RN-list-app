@@ -6,9 +6,9 @@ export default StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    height: 70,
+    height: 150,
     backgroundColor: '#fff',
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     marginBottom: 10,
     shadowColor: '#000',
     shadowOffset: {
@@ -21,9 +21,23 @@ export default StyleSheet.create({
   },
   itemWrapper: {
     flex: 1,
+    flexDirection: 'row',
+  },
+  avatar: {
+    height: 120,
+    width: 120,
+    borderRadius: 5,
+  },
+  userInfo: {
+    flex: 1,
+    justifyContent: 'space-around',
+    paddingHorizontal: 5,
   },
   text: {
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 22,
+  },
+  bold: {
+    fontWeight: 'bold',
   },
 });

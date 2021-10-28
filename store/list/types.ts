@@ -25,17 +25,7 @@ export interface GetAllRejectedActionType {
   readonly payload: ListModels.ListGetAllResponse;
 }
 
-export interface SetItemPreviewActionType {
-  readonly type: typeof actionsTypes.LIST_SET_ITEM_PREVIEW;
-}
-
-export interface ClearItemPreviewActionType {
-  readonly type: typeof actionsTypes.LIST_CLEAR_ITEM_PREVIEW;
-}
-
 export type ListActionTypes = GetAllPendingActionType
 | GetAllSuccessfulActionType
 | GetAllRejectedActionType
-| SetItemPreviewActionType
-| ClearItemPreviewActionType
 | RehydrateAction;

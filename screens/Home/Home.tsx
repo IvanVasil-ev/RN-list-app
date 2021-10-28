@@ -1,4 +1,13 @@
-import React, { memo, useCallback, useState } from 'react';
+import React,
+{
+  memo,
+  useCallback,
+  useEffect,
+} from 'react';
+import {
+  useSelector,
+  useDispatch,
+} from 'react-redux';
 import {
   FlatList,
   RefreshControl,
@@ -7,33 +16,23 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import FlatListItem from '../../components/FlatListItem/FlatListItem';
 import styles from './Home.styles';
+import { RootState } from '../../store/rootReducer';
+import { getAllPending } from '../../store/list/actions';
 
 function Home(): React.ReactElement {
-  const [refreshing, setRefreshing] = useState(false);
+  const dispatch = useDispatch();
+  const isLoading = useSelector<RootState>((store) => store.list.isLoading);
+  const list = useSelector<RootState>((store) => store.list.list);
+
+  const page = 1;
+
+  useEffect(() => {
+    dispatch(getAllPending(page));
+  }, []);
 
   const onRefresh = useCallback((): void => {
-    setRefreshing(true);
-    setTimeout(() => setRefreshing(false), 2000);
-  }, [setRefreshing]);
-
-  const mockData = [
-    {
-      id: 1,
-      title: 'This is 1 title!',
-    },
-    {
-      id: 2,
-      title: 'This is 2 title!',
-    },
-    {
-      id: 3,
-      title: 'This is 3 title!',
-    },
-    {
-      id: 4,
-      title: 'This is 4 title!',
-    },
-  ];
+    dispatch(getAllPending(page));
+  }, [page]);
 
   return (
     <SafeAreaProvider style={styles.container}>
@@ -41,15 +40,15 @@ function Home(): React.ReactElement {
         style={styles.flatList}
         refreshControl={(
           <RefreshControl
-            refreshing={refreshing}
+            refreshing={isLoading}
             onRefresh={onRefresh}
           />
         )}
-        data={mockData}
+        data={list}
         renderItem={({ item }): React.ReactElement => (
-          <FlatListItem title={item.title} id={item.id} />
+          <FlatListItem item={item} />
         )}
-        keyExtractor={(item) => `${item.id}`}
+        keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
       />
     </SafeAreaProvider>
