@@ -4,7 +4,7 @@ export type ListGetPageResponse = ListItemPreview[] | null;
 
 export type ListChangeValue = {
   key: string;
-  value: any;
+  value: boolean | [];
 };
 
 export type ListErrorRepsonse = Error;
