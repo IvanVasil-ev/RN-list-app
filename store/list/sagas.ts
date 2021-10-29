@@ -37,11 +37,11 @@ function* getPage({
         accept: 'application/vnd.github.v3+json',
       },
     };
-    if (isDelayed) {
-      yield delay(15000);
-    }
     const { data } = yield call<typeof apiCall>(apiCall, config);
     if (payload === 1) {
+      if (isDelayed) {
+        yield delay(15000);
+      }
       yield put(getFirstPageSuccessful(data));
     } else {
       yield put(getNextPageSuccessful(data));
