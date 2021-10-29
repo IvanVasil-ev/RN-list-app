@@ -7,33 +7,33 @@ export type ListState = {
   isLoading: boolean;
   isDelayed: boolean;
   errorMessage: string | null;
-  list: ListModels.ListGetAllResponse;
+  list: ListModels.ListGetPageResponse;
   currentItemPreview: ListModels.ListItemPreview | null;
 };
 
-export interface GetAllPendingActionType {
-  type: typeof actionsTypes.LIST_GET_ALL_PENDING;
-  payload: ListModels.ListGetAllRequest;
+export interface GetFirstPagePendingActionType {
+  type: typeof actionsTypes.LIST_GET_FIRST_PAGE_PENDING;
+  payload: ListModels.ListGetPageRequest;
 }
 
-export interface GetAllSuccessfulActionType {
-  readonly type: typeof actionsTypes.LIST_GET_ALL_SUCCESSFUL;
-  readonly payload: ListModels.ListGetAllResponse;
+export interface GetFirstPageSuccessfulActionType {
+  readonly type: typeof actionsTypes.LIST_GET_FIRST_PAGE_SUCCESSFUL;
+  readonly payload: ListModels.ListGetPageResponse;
 }
 
-export interface GetAllRejectedActionType {
-  readonly type: typeof actionsTypes.LIST_GET_ALL_REJECTED;
+export interface GetFirstPageRejectedActionType {
+  readonly type: typeof actionsTypes.LIST_GET_FIRST_PAGE_REJECTED;
   readonly payload: ListModels.ListErrorRepsonse;
 }
 
 export interface LoadNextPagePendingActionType {
   type: typeof actionsTypes.LIST_GET_NEXT_PAGE_PENDING;
-  payload: ListModels.ListGetAllRequest;
+  payload: ListModels.ListGetPageRequest;
 }
 
 export interface LoadNextPageSuccessfulActionType {
   readonly type: typeof actionsTypes.LIST_GET_NEXT_PAGE_SUCCESSFUL;
-  readonly payload: ListModels.ListGetAllResponse;
+  readonly payload: ListModels.ListGetPageResponse;
 }
 
 export interface LoadNextPageRejectedActionType {
@@ -48,12 +48,12 @@ export interface ChangeValueActionType {
 
 export interface UpdateListPendingActionType {
   readonly type: typeof actionsTypes.LIST_UPDATE_PENDING;
-  readonly payload: ListModels.ListGetAllRequest;
+  readonly payload: ListModels.ListGetPageRequest;
 }
 
 export interface UpdateListSuccessfulActionType {
   readonly type: typeof actionsTypes.LIST_UPDATE_SUCCESSFUL;
-  readonly payload: ListModels.ListGetAllResponse;
+  readonly payload: ListModels.ListGetPageResponse;
 }
 
 export interface UpdateListRejectedActionType {
@@ -62,9 +62,9 @@ export interface UpdateListRejectedActionType {
 }
 
 export type ListActionTypes = ChangeValueActionType
-| GetAllPendingActionType
-| GetAllSuccessfulActionType
-| GetAllRejectedActionType
+| GetFirstPagePendingActionType
+| GetFirstPageSuccessfulActionType
+| GetFirstPageRejectedActionType
 | LoadNextPagePendingActionType
 | LoadNextPageSuccessfulActionType
 | LoadNextPageRejectedActionType

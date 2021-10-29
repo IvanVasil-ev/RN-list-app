@@ -27,15 +27,15 @@ function reducer(state = INITIAL_STATE, action: ListActionTypes): ListState {
         errorMessage: null,
       };
     }
-    case actionTypes.LIST_GET_ALL_PENDING: {
+    case actionTypes.LIST_GET_FIRST_PAGE_PENDING: {
       return {
         ...state,
         isLoading: true,
         errorMessage: null,
       };
     }
-    case actionTypes.LIST_GET_ALL_SUCCESSFUL: {
-      const list = payload as ListModels.ListGetAllResponse;
+    case actionTypes.LIST_GET_FIRST_PAGE_SUCCESSFUL: {
+      const list = payload as ListModels.ListGetPageResponse;
       return {
         ...state,
         list,
@@ -44,7 +44,7 @@ function reducer(state = INITIAL_STATE, action: ListActionTypes): ListState {
         errorMessage: null,
       };
     }
-    case actionTypes.LIST_GET_ALL_REJECTED: {
+    case actionTypes.LIST_GET_FIRST_PAGE_REJECTED: {
       const error = payload as ListModels.ListErrorRepsonse;
       return {
         ...state,
@@ -60,7 +60,7 @@ function reducer(state = INITIAL_STATE, action: ListActionTypes): ListState {
       };
     }
     case actionTypes.LIST_GET_NEXT_PAGE_SUCCESSFUL: {
-      const nextList = payload as ListModels.ListGetAllResponse & [];
+      const nextList = payload as ListModels.ListGetPageResponse & [];
       const newList = [...new Set([...(Array.isArray(state.list) ? state.list : []), ...nextList])];
       return {
         ...state,
@@ -92,7 +92,7 @@ function reducer(state = INITIAL_STATE, action: ListActionTypes): ListState {
       };
     }
     case actionTypes.LIST_UPDATE_SUCCESSFUL: {
-      const list = payload as ListModels.ListGetAllResponse;
+      const list = payload as ListModels.ListGetPageResponse;
       return {
         ...state,
         list,

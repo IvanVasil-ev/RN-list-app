@@ -16,7 +16,7 @@ type FlatListItemProps = {
 }
 
 function FlatFlistItem({ item }: FlatListItemProps): React.ReactElement {
-  const navigation = useNavigation<StackNavigationProp<any, any>>();
+  const navigation = useNavigation<StackNavigationProp<any, any>>(); // TODO: Change "any"
 
   const onPress = useCallback(() => navigation.navigate('Preview', { item }), [item]);
 

@@ -22,7 +22,7 @@ import {
   ITEMS_QUANTITY,
 } from '../../constants';
 
-const apiCall = (config: any): AxiosPromise<any> => axios(config);
+const apiCall = (config: any): AxiosPromise<any> => axios(config); // TODO: Change "any"
 
 function* getPage({
   payload,
@@ -46,11 +46,11 @@ function* getPage({
       yield put(getNextPageSuccessful(data));
     }
   } catch (e) {
-    yield put(getAllRejected(e as any));
+    yield put(getAllRejected(e as any)); // TODO: Change "any"
   }
 }
 
-function* listUpdate({
+function* updateList({
   payload,
 }: ReturnType<typeof updateListPending>) {
   try {
@@ -67,13 +67,13 @@ function* listUpdate({
     const { data } = yield call(apiCall, config);
     yield put(updateListSuccessful(data));
   } catch (e) {
-    yield put(updateListRejected(e as any));
+    yield put(updateListRejected(e as any)); // TODO: Change "any"
   }
 }
 
 function* watch(): Generator {
-  yield takeLatest(actionTypes.LIST_GET_ALL_PENDING, getPage);
-  yield takeLatest(actionTypes.LIST_UPDATE_PENDING, listUpdate);
+  yield takeLatest(actionTypes.LIST_GET_FIRST_PAGE_PENDING, getPage);
+  yield takeLatest(actionTypes.LIST_UPDATE_PENDING, updateList);
   yield takeLatest(actionTypes.LIST_GET_NEXT_PAGE_PENDING, getPage);
 }
 
