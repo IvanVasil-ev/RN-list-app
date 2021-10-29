@@ -1,5 +1,5 @@
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, ParamListBase } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import {
   View,
@@ -16,7 +16,7 @@ type FlatListItemProps = {
 }
 
 function FlatFlistItem({ item }: FlatListItemProps): React.ReactElement {
-  const navigation = useNavigation<StackNavigationProp<any, any>>();
+  const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
 
   const onPress = useCallback(() => navigation.navigate('Preview', { item }), [item]);
 

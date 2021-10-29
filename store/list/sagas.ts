@@ -33,7 +33,7 @@ function* getPage({
       method: 'GET',
       url: `${BASE_URL}?per_page=${ITEMS_QUANTITY}&page=${payload}`,
       Headers: {
-        acept: 'application/vnd.github.v3+json',
+        accept: 'application/vnd.github.v3+json',
       },
     };
     if (isDelayed) {
@@ -50,7 +50,7 @@ function* getPage({
   }
 }
 
-function* listUpdate({
+function* updateList({
   payload,
 }: ReturnType<typeof updateListPending>) {
   try {
@@ -72,8 +72,8 @@ function* listUpdate({
 }
 
 function* watch(): Generator {
-  yield takeLatest(actionTypes.LIST_GET_ALL_PENDING, getPage);
-  yield takeLatest(actionTypes.LIST_UPDATE_PENDING, listUpdate);
+  yield takeLatest(actionTypes.LIST_GET_FIRST_PAGE_PENDING, getPage);
+  yield takeLatest(actionTypes.LIST_UPDATE_PENDING, updateList);
   yield takeLatest(actionTypes.LIST_GET_NEXT_PAGE_PENDING, getPage);
 }
 

@@ -1,21 +1,21 @@
-export type ListGetAllRequest = number;
+export type ListGetPageRequest = number;
 
-export type ListGetAllResponse = ListItemPreview[] | null;
+export type ListGetPageResponse = ListItemPreview[] | null;
 
 export type ListChangeValue = {
   key: string;
-  value: any,
+  value: any;
 };
 
 export type ListErrorRepsonse = Error;
 
-export type author = {
+export type Author = {
   email?: string;
   name?: string;
 }
 
-export type commits = {
-  author?: author;
+export type Commits = {
+  author?: Author;
   email?: string;
   name?: string;
   distinct?: boolean;
@@ -24,9 +24,9 @@ export type commits = {
   url?: string;
 }
 
-export type payload = {
+export type Payload = {
   before?: string;
-  commits?: commits[];
+  commits?: Commits[];
   distinct_size?: number;
   head?: string;
   push_id?: 8257708776;
@@ -37,13 +37,13 @@ export type payload = {
   pusher_type?: string;
   ref_type?: string;
 }
-export type repo = {
+export type Repo = {
   id?: number;
   name?: string;
   url?: string;
 }
 
-export type actor = {
+export type Actor = {
   id?: number;
   login?: string;
   gravatar_id?: string;
@@ -51,7 +51,7 @@ export type actor = {
   url?: string;
 }
 
-export type org = {
+export type Org = {
   id?: number;
   login?: string;
   gravatar_id?: string;
@@ -62,10 +62,10 @@ export type org = {
 export interface ListItemPreview {
   type?: string;
   public?: boolean;
-  payload?: payload;
-  repo?: repo;
-  actor?: actor;
-  org?: org;
+  payload?: Payload;
+  repo?: Repo;
+  actor?: Actor;
+  org?: Org;
   createdAt?: string;
   id: string;
 }

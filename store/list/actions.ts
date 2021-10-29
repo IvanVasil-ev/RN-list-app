@@ -3,9 +3,9 @@ import {
 } from '../../models';
 import * as types from '../actionsList';
 import {
-  GetAllPendingActionType,
-  GetAllSuccessfulActionType,
-  GetAllRejectedActionType,
+  GetFirstPagePendingActionType,
+  GetFirstPageSuccessfulActionType,
+  GetFirstPageRejectedActionType,
   LoadNextPagePendingActionType,
   LoadNextPageSuccessfulActionType,
   LoadNextPageRejectedActionType,
@@ -16,35 +16,35 @@ import {
 } from './types';
 
 export const getAllPending = (
-  payload: ListModels.ListGetAllRequest,
-): GetAllPendingActionType => ({
-  type: types.LIST_GET_ALL_PENDING,
+  payload: ListModels.ListGetPageRequest,
+): GetFirstPagePendingActionType => ({
+  type: types.LIST_GET_FIRST_PAGE_PENDING,
   payload,
 });
 
 export const getlAllSuccessful = (
-  payload: ListModels.ListGetAllResponse,
-): GetAllSuccessfulActionType => ({
-  type: types.LIST_GET_ALL_SUCCESSFUL,
+  payload: ListModels.ListGetPageResponse,
+): GetFirstPageSuccessfulActionType => ({
+  type: types.LIST_GET_FIRST_PAGE_SUCCESSFUL,
   payload,
 });
 
 export const getAllRejected = (
   payload: ListModels.ListErrorRepsonse,
-): GetAllRejectedActionType => ({
-  type: types.LIST_GET_ALL_REJECTED,
+): GetFirstPageRejectedActionType => ({
+  type: types.LIST_GET_FIRST_PAGE_REJECTED,
   payload,
 });
 
 export const getNextPagePending = (
-  payload: ListModels.ListGetAllRequest,
+  payload: ListModels.ListGetPageRequest,
 ): LoadNextPagePendingActionType => ({
   type: types.LIST_GET_NEXT_PAGE_PENDING,
   payload,
 });
 
 export const getNextPageSuccessful = (
-  payload: ListModels.ListGetAllResponse,
+  payload: ListModels.ListGetPageResponse,
 ): LoadNextPageSuccessfulActionType => ({
   type: types.LIST_GET_NEXT_PAGE_SUCCESSFUL,
   payload,
@@ -57,22 +57,15 @@ export const getNextPageRejected = (
   payload,
 });
 
-export const changeValue = (
-  payload: ListModels.ListChangeValue,
-): ChangeValueActionType => ({
-  type: types.LIST_CHANGE_VALUE,
-  payload,
-});
-
 export const updateListPending = (
-  payload: ListModels.ListGetAllRequest,
+  payload: ListModels.ListGetPageRequest,
 ): UpdateListPendingActionType => ({
   type: types.LIST_UPDATE_PENDING,
   payload,
 });
 
 export const updateListSuccessful = (
-  payload: ListModels.ListGetAllResponse,
+  payload: ListModels.ListGetPageResponse,
 ): UpdateListSuccessfulActionType => ({
   type: types.LIST_UPDATE_SUCCESSFUL,
   payload,
@@ -82,5 +75,12 @@ export const updateListRejected = (
   payload: ListModels.ListErrorRepsonse,
 ): UpdateListRejectedActionType => ({
   type: types.LIST_UPDATE_REJECTED,
+  payload,
+});
+
+export const changeValue = (
+  payload: ListModels.ListChangeValue,
+): ChangeValueActionType => ({
+  type: types.LIST_CHANGE_VALUE,
   payload,
 });
