@@ -11,6 +11,7 @@ Stack: [React Native](https://reactnative.dev), [Navigation](https://reactnaviga
 ```shell script
 git clone https://github.com/ivan0vasilev/RN-list-app.git
 cd ./RN-list-app
+nvm use 16
 npm install
 ```
 
@@ -35,11 +36,11 @@ npm run android
 Build using Expo:
 
 ```shell script
-npm build:ios
+expo build:ios
 ```
 
 ```shell script
-npm build:android
+expo build:android
 ```
 
 ### Linting

@@ -1,13 +1,8 @@
 {
   "name": "rn-list-app",
   "description": "This is React Native app based on Expo CLI for getting and looking information about list elements.",
-  "author": {
-    "name": "Ivan Vasilev",
-    "url": "https://github.com/ivan0vasilev"
-  },
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://github.com/ivan0vasilev/RN-list-app",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ivan0vasilev/RN-list-app"
@@ -17,9 +12,12 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web",
     "eject": "expo eject",
     "lint": "eslint"
+  },
+  "engines": {
+    "node": ">16.0.0",
+    "npm": ">7.0.0"
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.5",
