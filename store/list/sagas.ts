@@ -22,7 +22,7 @@ import {
   ITEMS_QUANTITY,
 } from '../../constants';
 
-const apiCall = (config: any): AxiosPromise<any> => axios(config); // TODO: Change "any"
+const apiCall = (config: any): AxiosPromise<any> => axios(config);
 
 function* getPage({
   payload,
@@ -46,7 +46,7 @@ function* getPage({
       yield put(getNextPageSuccessful(data));
     }
   } catch (e) {
-    yield put(getAllRejected(e as any)); // TODO: Change "any"
+    yield put(getAllRejected(e as any));
   }
 }
 
@@ -67,7 +67,7 @@ function* updateList({
     const { data } = yield call(apiCall, config);
     yield put(updateListSuccessful(data));
   } catch (e) {
-    yield put(updateListRejected(e as any)); // TODO: Change "any"
+    yield put(updateListRejected(e as any));
   }
 }
 

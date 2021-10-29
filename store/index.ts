@@ -19,7 +19,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default () => {
-  const store = createStore<RootState & PersistPartial, any, any, any>( // TODO: Change "any"
+  const store = createStore<RootState & PersistPartial, any, any, any>(
     persistedReducer,
     applyMiddleware(sagaMiddleware),
   );
