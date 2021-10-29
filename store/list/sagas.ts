@@ -33,7 +33,7 @@ function* getPage({
       method: 'GET',
       url: `${BASE_URL}?per_page=${ITEMS_QUANTITY}&page=${payload}`,
       Headers: {
-        acept: 'application/vnd.github.v3+json',
+        accept: 'application/vnd.github.v3+json',
       },
     };
     if (isDelayed) {
