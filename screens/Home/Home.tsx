@@ -11,11 +11,11 @@ import {
   useDispatch,
 } from 'react-redux';
 import {
+  View,
   FlatList,
   RefreshControl,
   ActivityIndicator,
 } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { useNavigation } from '@react-navigation/native';
 import FlatListItem from '../../components/FlatListItem/FlatListItem';
@@ -36,7 +36,7 @@ function Home(): React.ReactElement {
   const interval: { current: NodeJS.Timeout | null } = useRef(null);
   const isLoading = useSelector<RootState, boolean>((store) => store.list.isLoading);
   const isDelayed = useSelector<RootState, boolean>((store) => store.list.isDelayed);
-  const list = useSelector<RootState, ListModels.ListGetAllResponse>((store) => store.list.list);
+  const list = useSelector<RootState, ListModels.ListGetPageResponse>((store) => store.list.list);
 
   const [page, setPage] = useState(1);
 
@@ -74,7 +74,7 @@ function Home(): React.ReactElement {
   }, [dispatch, page, list]);
 
   return (
-    <SafeAreaProvider style={styles.container}>
+    <View style={styles.container}>
       <FlatList
         style={styles.flatList}
         refreshControl={(
@@ -95,7 +95,7 @@ function Home(): React.ReactElement {
           <ActivityIndicator size="small" />
         ) : null}
       />
-    </SafeAreaProvider>
+    </View>
   );
 }
 
