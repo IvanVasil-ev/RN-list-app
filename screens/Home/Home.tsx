@@ -22,7 +22,7 @@ import FlatListItem from '../../components/FlatListItem/FlatListItem';
 import styles from './Home.styles';
 import { RootState } from '../../store/rootReducer';
 import {
-  getAllPending,
+  getFirstPagePending,
   getNextPagePending,
   updateListPending,
 } from '../../store/list/actions';
@@ -41,7 +41,7 @@ function Home(): React.ReactElement {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getAllPending(1));
+    dispatch(getFirstPagePending(1));
     navigation.addListener('focus', () => {
       interval.current = setInterval(() => dispatch(updateListPending(page)), 60000);
     });
@@ -54,7 +54,7 @@ function Home(): React.ReactElement {
 
   const onRefresh = useCallback((): void => {
     if (!isDelayed) {
-      dispatch(getAllPending(page));
+      dispatch(getFirstPagePending(page));
       if (interval.current) {
         clearInterval(interval.current);
         interval.current = setInterval(() => dispatch(updateListPending(page)), 60000);

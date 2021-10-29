@@ -1,4 +1,4 @@
-import axios, { AxiosPromise } from 'axios';
+import axios, { AxiosRequestConfig, Method } from 'axios';
 import {
   call,
   put,
@@ -9,9 +9,9 @@ import {
 
 import * as actionTypes from '../actionsList';
 import {
-  getAllPending,
-  getlAllSuccessful,
-  getAllRejected,
+  getFirstPagePending,
+  getFirstPageSuccessful,
+  getFirstPageRejected,
   getNextPageSuccessful,
   updateListPending,
   updateListSuccessful,
@@ -21,16 +21,17 @@ import {
   BASE_URL,
   ITEMS_QUANTITY,
 } from '../../constants';
+import { ServerRequest } from './types';
 
-const apiCall = (config: any): AxiosPromise<any> => axios(config);
+const apiCall = (config: AxiosRequestConfig<ServerRequest>) => axios(config);
 
 function* getPage({
   payload,
-}: ReturnType<typeof getAllPending>) {
+}: ReturnType<typeof getFirstPagePending>) {
   try {
     const isDelayed: boolean = yield select((state) => state.list.isDelayed);
     const config = {
-      method: 'GET',
+      method: 'GET' as Method,
       url: `${BASE_URL}?per_page=${ITEMS_QUANTITY}&page=${payload}`,
       Headers: {
         accept: 'application/vnd.github.v3+json',
@@ -39,14 +40,15 @@ function* getPage({
     if (isDelayed) {
       yield delay(15000);
     }
-    const { data } = yield call(apiCall, config);
+    const { data } = yield call<typeof apiCall>(apiCall, config);
     if (payload === 1) {
-      yield put(getlAllSuccessful(data));
+      yield put(getFirstPageSuccessful(data));
     } else {
       yield put(getNextPageSuccessful(data));
     }
   } catch (e) {
-    yield put(getAllRejected(e as any));
+    const error = e as Error;
+    yield put(getFirstPageRejected(error));
   }
 }
 
@@ -57,17 +59,18 @@ function* updateList({
     const offset = payload * ITEMS_QUANTITY;
 
     const config = {
-      method: 'GET',
+      method: 'GET' as Method,
       url: `${BASE_URL}?per_page=${offset}`,
       Headers: {
-        acept: 'application/vnd.github.v3+json',
+        accept: 'application/vnd.github.v3+json',
       },
     };
 
-    const { data } = yield call(apiCall, config);
+    const { data } = yield call<typeof apiCall>(apiCall, config);
     yield put(updateListSuccessful(data));
   } catch (e) {
-    yield put(updateListRejected(e as any));
+    const error = e as Error;
+    yield put(updateListRejected(error));
   }
 }
 

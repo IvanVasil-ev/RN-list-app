@@ -8,7 +8,7 @@ import {
 import { useDispatch } from 'react-redux';
 
 import { ListItemPreview } from '../../models/List';
-import { changeValue, getAllPending } from '../../store/list/actions';
+import { changeValue, getFirstPagePending } from '../../store/list/actions';
 import styles from './Preview.styles';
 
 type PreviewProps = {
@@ -29,7 +29,7 @@ function Preview({ route }: PreviewProps): React.ReactElement {
   useEffect(() => {
     dispatch(changeValue({ key: 'isDelayed', value: false }));
     return () => {
-      dispatch(getAllPending(1));
+      dispatch(getFirstPagePending(1));
     };
   }, [dispatch]);
 

@@ -15,21 +15,21 @@ import {
   UpdateListPendingActionType,
 } from './types';
 
-export const getAllPending = (
+export const getFirstPagePending = (
   payload: ListModels.ListGetPageRequest,
 ): GetFirstPagePendingActionType => ({
   type: types.LIST_GET_FIRST_PAGE_PENDING,
   payload,
 });
 
-export const getlAllSuccessful = (
+export const getFirstPageSuccessful = (
   payload: ListModels.ListGetPageResponse,
 ): GetFirstPageSuccessfulActionType => ({
   type: types.LIST_GET_FIRST_PAGE_SUCCESSFUL,
   payload,
 });
 
-export const getAllRejected = (
+export const getFirstPageRejected = (
   payload: ListModels.ListErrorRepsonse,
 ): GetFirstPageRejectedActionType => ({
   type: types.LIST_GET_FIRST_PAGE_REJECTED,
