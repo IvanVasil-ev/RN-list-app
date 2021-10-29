@@ -60,7 +60,7 @@ function Home(): React.ReactElement {
         interval.current = setInterval(() => dispatch(updateListPending(page)), 60000);
       }
     }
-  }, [page, dispatch]);
+  }, [page, dispatch, isDelayed]);
 
   const onEndReached = useCallback((): void => {
     if (Array.isArray(list) && list.length >= 25 && !isLoading) {
