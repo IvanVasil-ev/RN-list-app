@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, Store } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistPartial } from 'redux-persist/es/persistReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -19,7 +19,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default () => {
-  const store = createStore<RootState & PersistPartial, any, any, any>(
+  const store: Store<RootState & PersistPartial> = createStore(
     persistedReducer,
     applyMiddleware(sagaMiddleware),
   );
