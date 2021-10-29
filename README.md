@@ -4,7 +4,7 @@ List mobile application based on Expo CLI for getting and looking information ab
 
 All of the data stored in the redux store.
 
-Stack: [React Native](https://reactnative.dev), [Expo](https://expo.dev), [Typescript](https://www.typescriptlang.org).
+Stack: [React Native](https://reactnative.dev), [Navigation](https://reactnavigation.org), [Expo](https://expo.dev), [Typescript](https://www.typescriptlang.org).
 
 ### Deploy
 
